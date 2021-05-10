@@ -1,0 +1,187 @@
+:root {
+  --body-width: 48rem;
+  --serif: georgia, times, serif;
+  --sans-serif: avenir, helvetica, arial, sans-serif;
+  --mono: consolas, monaco, monospace;
+  --foreground: black;
+  --background: Honeydew;
+
+  --a-decoration: none;
+  --a-style: normal;
+  --a-prefix: "⇒";
+  --ul-bullet: "*";
+  --p-indent: 0rem;
+  --quote-style: italic;
+
+  --p-size: 1.25rem;
+  --a-size: var(--p-size);
+  --pre-size: 1rem;
+  --h1-size: 3rem;
+  --h2-size: 2.25rem;
+  --h3-size: 1.5rem;
+  --ul-size: var(--p-size);
+  --quote-size: var(--p-size);
+
+  --p-line-height: 1.5;
+  --a-line-height: 1.5;
+  --pre-line-height: 1;
+  --h-line-height: 1.25;
+  --ul-line-height: 1.25;
+  --quote-line-height: 1.25;
+}
+
+body {
+  max-width: var(--body-width);
+  padding: 0.5rem;
+  margin: 0 auto;
+}
+
+p,
+a,
+pre,
+h1,
+h2,
+h3,
+ul,
+blockquote,
+img,
+audio,
+video {
+  display: block;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--sans-serif);
+  line-height: var(--h-line-height);
+}
+
+p {
+  font-size: var(--p-size);
+  font-family: var(--serif);
+  text-indent: var(--p-indent);
+  line-height: var(--p-line-height);
+  margin: 1.5vmin;
+}
+
+a::before {
+  font-size: var(--a-size);
+  font-family: var(--mono);
+  content: var(--a-prefix);
+  line-height: var(--a-line-height);
+  padding-right: 0.25rem;
+  vertical-align: middle;
+}
+
+a {
+  font-size: var(--a-size);
+  font-style: var(--a-style);
+  font-family: var(--serif);
+  text-decoration: var(--a-decoration);
+}
+
+pre {
+  font-size: var(--pre-size);
+  font-family: var(--mono);
+  line-height: var(--pre-line-height);
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+h1 {
+  font-size: var(--h1-size);
+}
+
+h2 {
+  font-size: var(--h2-size);
+}
+
+h3 {
+  font-size: var(--h3-size);
+}
+
+ul {
+  font-size: var(--ul-size);
+  font-family: var(--serif);
+  line-height: var(--ul-line-height);
+  list-style-type: none;
+}
+
+li::before {
+  font-size: var(--ul-size);
+  font-family: var(--mono);
+  content: var(--ul-bullet);
+  vertical-align: middle;
+  padding-right: 0.5rem;
+}
+
+blockquote {
+  font-size: var(--quote-size);
+  font-family: var(--serif);
+  font-style: var(--quote-style);
+  line-height: var(--quote-line-height);
+  padding-left: 0.75rem;
+}
+
+pre + blockquote {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* foreground and background colors */
+html,
+body,
+h1,
+h2,
+h3,
+p,
+a,
+ul,
+blockquote,
+pre::selection {
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+blockquote {
+  border-left: 0.5rem solid var(--foreground);
+}
+
+pre,
+::selection,
+a:hover {
+  color: var(--background);
+  background-color: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  ul,
+  blockquote,
+  pre::selection {
+    color: var(--background);
+    background-color: var(--foreground);
+  }
+
+  blockquote {
+    border-left: 0.5rem solid var(--background);
+  }
+
+  pre,
+  ::selection,
+  a:hover {
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+}
