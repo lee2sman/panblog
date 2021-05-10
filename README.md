@@ -1,5 +1,8 @@
 # panblog
 
+Note: panblog is still in development and may continue to change, have bugs, destroy your computer, make your hand fall off, etc.
+
+
 panblog is a simple, minimal bash and pandoc-based static site generator. It takes a flat file directory of markdown files and can build a website inside a folder, or you can add just a new post to an existing panblog.
 
 panblog makes use of Pandoc, and specifically the template feature which allows the creation of html templates that include custom header and footer.
