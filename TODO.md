@@ -9,3 +9,5 @@
 * [ ] Markdown -> image portfolio page example (this would be a html + css template)
 * [ ] add Git Add Commit Push -> publish via GitHub pages workflow
 * [X] templating language for image paths (would allow changing base url)
+* [ ] optional use of image asset folder via var
+* [ ] correct usage of templating for independent pages not posts
