@@ -102,6 +102,17 @@ function create_site {
 
   # build index
   pandoc --standalone --template templates/site_template.html $site_folder/index.md --metadata title="$site_name" -o $site_folder/index.html
+
+
+  # build all custom pages of any .md files
+  for file in *.md; do
+
+    page_dir=$(basename $file .md)
+    mkdir -p $site_folder/$page_dir
+
+    pandoc --standalone --template templates/post_template.html $file --metadata title="$page_dir" -o $site_folder/$page_dir/index.html
+
+  done
 }
 
 function create_feed {
