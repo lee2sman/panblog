@@ -13,3 +13,5 @@
 * [ ] correct usage of templating for independent pages not posts
 * [ ] OG:meta tags
 * [X] if using filename for title, convert spaces to underscores
+* [X] add documentation! (for example build, local server, images folder, config file, changing theme)
+* [ ] Automatically add css theme to all pages unless overriden in a post's frontmatter.
