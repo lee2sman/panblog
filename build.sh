@@ -28,14 +28,12 @@ function source_config {
 
   # make site folder if doesn't exist
   mkdir -p $site_folder
-  #echo $site_folder
 
 # set posts folder to value in config
   POSTS_PATH=$(grep -oP '(?<=site_posts=).*' $CONFIG_PATH)
 
   # make posts folder if it doesn't exist
   mkdir -p $POSTS_PATH
-  #echo $POSTS_PATH
 
   #set feed_name to site_feed value in config
   feed_name=$(grep -oP '(?<=site_feed=).*' $CONFIG_PATH)
@@ -44,7 +42,6 @@ function source_config {
   site_theme=$(grep -oP '(?<=site_theme=).*' $CONFIG_PATH)
   echo "theme is: themes/$site_theme"
 
-  
   touch $site_folder/$feed_name
 }
 
@@ -78,28 +75,32 @@ function create_site {
   # tac may not be installed on os x
   ls $site_posts/*.md | tac | while read file;
   do
-    #convert spaces in name to hyphen, if you have rename
-    #this needs to be tested/debugged
-    #if command -v rename &> /dev/null;
-    #then
-     # rename "s/ /-/g" $file
-    #fi
+    #check if file has title in frontmatter
+    if grep -oP '(?<=title: ).*' $file ; then
+      post_name_raw=$(grep -oP '(?<=title: ).*' $file)
+    else #else use title of filename
+      #strip .md extension from filename to get page name
+      pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
+      post_name_suffix="${file/$pattern}"
+      post_name_raw=$(basename $post_name_suffix .md)
+    fi
+    #strip out spaces
+    post_name="${post_name_raw// /_}"
 
-    #strip .md extension from filename to get page name
-    #post_name=$(basename --suffix=.md $file)
-    pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
-    post_name_suffix="${file/$pattern}"
-    post_name=$(basename $post_name_suffix .md)
-    post_date="${file:6:10}"
+    #check if file has date in frontmatter
+    if grep -oP '(?<=date: ).*' $file ; then
+      post_date=$(grep -oP '(?<=date: ).*' $file)
+    else #else use date from filename
+      post_date="${file:6:10}"
+    fi
 
     # uncomment this section if you prefer flat hierarchy postname.md -> postname.html in single folder
     # pandoc --standalone --template templates/template.html $1 -o $site_folder/"${file.md}.html"
 
     # uncomment this section if you prefer posts to be in their own subfolder so permalinks are website.com/postname/
     mkdir -p $site_folder/$post_name
-    pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html $file -o $site_folder/$post_name/index.html
-
-    echo "[$post_name]($post_name/)  ">>$site_folder/index.md
+    pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html $file -o $site_folder/$post_name/index.html
+    echo "[$post_name_raw]($post_name/)  ">>$site_folder/index.md
     echo "$post_date  ">>$site_folder/index.md
     echo "">>$site_folder/index.md
 
@@ -107,7 +108,6 @@ function create_site {
 
   # build index
   pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" --metadata theme="css/$site_theme" -o $site_folder/index.html
-
 
   # build all custom pages of any .md files
   for file in *.md; do
