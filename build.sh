@@ -97,13 +97,18 @@ function create_site {
       post_date="${file:6:10}"
     fi
 
-    # uncomment this section if you prefer flat hierarchy postname.md -> postname.html in single folder
-    # pandoc --standalone --template templates/template.html $1 -o $site_folder/"${file.md}.html"
+    # uncomment this section if you prefer flat hierarchy postname.md -> postname.html in single posts folder
+    # mkdir -p $site_folder/posts
+    # pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html $file -o $site_folder/posts/$post_name.html
+    # echo "[$post_name_raw](posts/$post_name.html)  ">>$site_folder/index.md
 
     # uncomment this section if you prefer posts to be in their own subfolder so permalinks are website.com/postname/
     mkdir -p $site_folder/$post_name
     pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html $file -o $site_folder/$post_name/index.html
+    # Add to site index page
     echo "[$post_name_raw]($post_name/)  ">>$site_folder/index.md
+
+    # add date 
     echo "$post_date  ">>$site_folder/index.md
     echo "">>$site_folder/index.md
 
