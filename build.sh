@@ -39,6 +39,11 @@ function source_config {
 
   #set feed_name to site_feed value in config
   feed_name=$(grep -oP '(?<=site_feed=).*' $CONFIG_PATH)
+
+  #set site_theme to value in config
+  site_theme=$(grep -oP '(?<=site_theme=).*' $CONFIG_PATH)
+  echo "theme is: themes/$site_theme"
+
   
   touch $site_folder/$feed_name
 }
@@ -101,7 +106,7 @@ function create_site {
   done
 
   # build index
-  pandoc --standalone --template templates/site_template.html $site_folder/index.md --metadata title="$site_name" -o $site_folder/index.html
+  pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" --metadata theme="css/$site_theme" -o $site_folder/index.html
 
 
   # build all custom pages of any .md files
@@ -130,7 +135,7 @@ function create_feed {
     echo "<item>" >> $site_folder/$feed_name
     # get individual title
     echo "<title>" >> $site_folder/$feed_name
-    grep -oP '(?<=title: ).*' $file >> $feed_name
+    grep -oP '(?<=title: ).*' $file >> $site_folder/$feed_name
     echo "</title>" >> $site_folder/$feed_name
 
     # get individual url
