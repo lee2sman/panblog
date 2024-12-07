@@ -1,8 +1,14 @@
 # panblog
 
-panblog is a simple, minimal bash and pandoc-based static site generator. It takes a flat file directory of markdown files and can build a website inside a folder, or you can add just a new post to an existing panblog.
+*Note: This project is currently in development as part of my #decemberadventure 2024 project. It may change a bit over the month and is not quite feature-complete currently.*
 
-panblog makes use of Pandoc, the swiss army knife of text file conversion. It makes use of pandoc's remarkable conversion tools, frontmatter variables, and custom templating.
+panblog is a simple, minimal bash and pandoc-based static site generator. It takes markdown files and converts them to a website you can host on your own server, github pages, neocities and the like. 
+
+panblog makes use of Pandoc, the swiss army knife of text file conversion. It makes use of pandoc's remarkable conversion tools, frontmatter variables, and custom templating: practically everything needed to make a static site.
+
+## Rationale
+
+panblog was created as an alternative to [Jekyll](https://jekyllrb.com/), [Hugo](https://gohugo.io/), and [11ty](https://www.11ty.dev/) and other static site generators. These three are great but I got frustrated with Jekyll breaking with dependency hell every couple months, or having to re-install the 'correct' version of ruby, bundler, and gems. I also didn't love that themes would break as Jekyll got progressively updated. Hugo was often mentioned to me as an alternative, and not changing nearly as often, but I didn't love having to completely customize and spend so much time setting up Hugo. And the number of options to learn felt daunting. In contrast, 11ty seemed somewhat easy to jump into, especially since they publish starter template sites, but I don't love npm and the node.js ecosystem because of how often there are changes, occasional security issues, and how packages get so bloated. I also looked into [bashblog](https://cfenollosa.github.io/bashblog/) but at 1500 lines of code, it was hard to hack on, and had features like Google analytics and Twitter integrations that I just didn't want. In contrast to all of these, 95% of the time I just need a landing page, blog pages, a header, and a folder of images, maybe a contact or about page. For this reason over the years I often found myself reaching for pandoc when creating small devlogs, class websites and the like. Over time I started creating small build scripts to automate using pandoc, which eventually grew into the foundation of panblog.
 
 ## Requirements
 
