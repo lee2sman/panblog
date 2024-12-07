@@ -113,7 +113,7 @@ _site/
 
 ## Themes
 
-panblog comes with several theme options. A theme should be specified in your templates files.
+panblog comes with several theme options, which are just css files. A theme for your landing page should be specified in your templates files. Individual posts can use different themes by specifying a css theme file in their front matter.
 
 ## License
 
