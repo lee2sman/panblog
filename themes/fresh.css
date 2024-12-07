@@ -1,0 +1,120 @@
+:root {
+  --main-bg-color: #d1ada1;
+  --alt-bg-color: #d1ada1;
+  --main-fg-color: #3b252e;
+  --main-heading-color: #3b252e;
+  --secondary-heading-color: #4d7d65; 
+  --tertiary-heading-color: #593a5f;
+  --border-color: #4d7d65;
+  --link-color: #593a5f;
+}
+
+html {
+  border-top: 10px dotted var(--border-color);
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,serif;
+}
+
+body {
+  margin: auto;
+  padding: 10px;
+  max-width: 40em;
+  font-size: 1.4rem;
+
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
+}
+
+header a p{
+  color: var(--main-fg-color);
+  text-decoration: underline !important;
+  font-weight: bold;
+}
+a {
+  text-decoration: dashed underline;
+}
+h1 {
+  color: var(--main-fg-color);
+}
+
+h2 {
+  color: var(--secondary-heading-color);
+}
+
+h3 {
+  color: var(--tertiary-heading-color);
+}
+
+figure {
+  margin: 0px; 
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: table;
+}
+figcaption {
+  display: table-caption;
+  caption-side: top;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+img {
+/*    padding: 0.5rem;  */
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+blockquote {
+  padding: 0.7rem;
+  border-radius: 0.8rem;
+  background-color: var(--alt-bg-color);
+  font-style: italic;
+}
+
+code {
+  padding: 0.3rem;
+  background-color: var(--border-color);
+  display: block;
+
+}
+
+a {
+  color: var(--main-fg-color);
+  margin: 0;
+  padding: 0;
+}
+a:hover {
+  background-color: var(--link-color);
+}
+
+nav {
+  font-size: medium;
+}
+
+footer {
+ font-size: small;
+ padding-top: 2em;
+}
+
+footer img{
+ margin: 0;
+}
+
+@media (max-width: 684px) {
+  body {
+    font-size: 1.53rem;
+  }
+}
+@media (max-width: 428px) {
+  body {
+    font-size: 1.35rem;
+}
+
+/* fixes sitename mid-sentence text break on some phones */
+header a p{
+  font-size: 1.1rem;
+  }
+}
+
+

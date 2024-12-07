@@ -1,5 +1,6 @@
 body {
   background-color: #c7fcd6;
+  margin: 1%;
 }
 
 h1 {
@@ -20,6 +21,7 @@ a {
 
 p {
   color: #04000c;
+  margin: 0px;
 }
 
 blockquote {
@@ -29,6 +31,12 @@ blockquote {
 code, pre {
   color: #ff1493;
 }
+
 ul, ol, li {
   color: #04000c;
+  margin: 0px;
+}
+
+img {
+  max-width: 90%;
 }

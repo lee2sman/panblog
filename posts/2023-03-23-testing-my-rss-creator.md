@@ -16,3 +16,10 @@ I realize I missed the deadline on something I was gonna apply to, damn.
 [A link](http://example.com)
 
 Hmmm. Hopefully this works.
+
+```lua
+function _init(){
+  init_cat()
+  init_hat()
+}
+```

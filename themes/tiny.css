@@ -1,0 +1,189 @@
+@charset "UTF-8";
+/** Reset some basic elements */
+@import url("https://fonts.googleapis.com/css?family=Bitter&display=swap");
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { 
+  margin: 0; padding: 0; 
+}
+
+/** Basic styling */
+html { 
+  background-size: 100% 100%; 
+  background-position: 0px 0px,0px 0px,0px 0px,0px 0px; 
+  background-image: radial-gradient(70% 53% at 36% 76%, #73F2FFFF 0%, #073AFF00 100%), radial-gradient(42% 53% at 15% 94%, #073AFF00 5%, #FFFFFFFF 7%), radial-gradient(31% 43% at 7% 98%, #FFFFFFFF 24%, #073AFF00 100%), linear-gradient(125deg, #4EB5FFFF 1%, #4C00FCFF 100%); 
+}
+
+body { 
+  font: 400 15.3px/1.6 "Bitter", "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑", "Bitter", sans-serif; 
+  font-family: Menlo, Monaco, Consolas, Liberation Mono, Lucida Console, monospace; 
+  color: #111;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 0 2%; 
+  margin: 0 auto;
+  max-width: 50em;
+  line-height: 1.5;
+  padding: 4em 1em;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 2em;
+}
+
+@media screen and (min-width: 600px) { 
+  body { 
+    padding: 0 5%;
+    font: 400 18px/1.8 "Bitter", "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑", "Bitter", sans-serif; 
+  } 
+}
+
+/** Set `margin-bottom` to maintain vertical rhythm */
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure { 
+  margin-bottom: 15px; 
+}
+
+/** `main` element */
+main { 
+  display: block; /* Default value of `display` of `main` element is 'inline' in IE 11. */ 
+}
+
+/** Divider */
+hr { 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  border: 0; 
+  height: 1px; 
+  background: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent); 
+  background: linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent); 
+}
+
+/** Images */
+img { 
+  margin-bottom: 5px; 
+  margin-top: 5px;
+  padding: 2px 2px;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+  max-width: 100%;
+  vertical-align: middle; 
+}
+
+/** Figures */
+figure > img { 
+  display: block; 
+}
+
+figcaption { 
+  font-size: 15.3px; 
+}
+
+/** Lists */
+ul, ol { 
+  margin-left: 30px; 
+}
+
+li > ul, li > ol { 
+  margin-bottom: 0; 
+}
+
+/** Headings */
+h1, h2, h3, h4, h5, h6 { 
+  margin-top: 2rem;
+  font-weight: 400; 
+}
+
+/** Links */
+a { 
+  color: #2a7ae2;
+  text-decoration: none; 
+}
+
+a:hover { 
+  text-decoration: underline;
+}
+
+/** Blockquotes */
+blockquote { 
+  color: #828282; 
+  border-left: 4px solid #e8e8e8; 
+  padding-left: 15px; 
+  font-size: 18px; 
+  letter-spacing: -1px; 
+}
+
+@media (max-width: 600px) { 
+  blockquote { 
+    font-size: 14.4px; 
+  } 
+}
+
+blockquote > :last-child { 
+  margin-bottom: 0; 
+}
+
+/** Code formatting */
+pre, code { 
+  font-size: 16.2px; 
+  border: 1px solid #e0e0e0; 
+  border-radius: 3px; 
+  background-color: #f0f0f0; 
+}
+
+code { 
+  padding: 1px 1px; 
+}
+
+pre { 
+  padding: 2px 2px; 
+  overflow-x: auto; 
+}
+
+pre > code { 
+  border: 0; 
+  padding-right: 0; 
+  padding-left: 0; 
+}
+
+/** Tables */
+table { 
+  margin-bottom: 30px; 
+  width: 100%; 
+  text-align: left;
+  color: #3f3f3f;
+  border-collapse: collapse;
+  border: 1px solid #e8e8e8;
+}
+
+table tr:nth-child(even) { 
+  background-color: #f7f7f7; 
+}
+
+table th, table td { 
+  padding: 10px 15px; 
+}
+
+table th { 
+  background-color: #f0f0f0; 
+  border: 1px solid #dedede;
+  border-bottom-color: #c9c9c9; 
+}
+
+table td { 
+  border: 1px solid #e8e8e8; 
+}
+
+nav { 
+  width: 100%; 
+}
+
+nav li { 
+  display: inline;
+  padding-top: 20px;
+  padding-right: 10px;
+  padding-bottom: 10px; 
+  padding-left: 10px; 
+}

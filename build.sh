@@ -38,6 +38,9 @@ function source_config {
   #set feed_name to site_feed value in config
   feed_name=$(grep -oP '(?<=site_feed=).*' $CONFIG_PATH)
 
+  #set site_assets folder
+  site_assets=$(grep -oP '(?<=site_assets=).*' $CONFIG_PATH)
+
   #set site_theme to value in config
   site_theme=$(grep -oP '(?<=site_theme=).*' $CONFIG_PATH)
   echo "theme is: themes/$site_theme"
@@ -57,7 +60,7 @@ function create_site {
 
   # copy over assets
   mkdir -p "$site_dir/$site_assets"
-  cp -r assets/* "$site_dir/$site_assets/"
+  cp -r $site_assets/* "$site_dir/$site_assets/"
 
   #erases site index, start from scratch
   > $site_folder/index.md 
