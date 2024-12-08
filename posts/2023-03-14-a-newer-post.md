@@ -1,8 +1,3 @@
----
-title: A new post for testing purposes
-date: March 14, 2023
-theme: tiny.css
----
 
 I realize one fatal flaw is that my rss writer doesn't do sorting (beyond the file naming scheme) so it doesn't rewrite the correct post order in the rss file.
 

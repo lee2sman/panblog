@@ -1,6 +1,5 @@
 ---
 title: Just testing my RSS creator
-date: March 14, 2023
 theme: slime.css
 ---
 
