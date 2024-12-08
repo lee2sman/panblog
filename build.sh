@@ -26,6 +26,9 @@ function source_config {
   # set site destination folder
   site_folder=$(grep -oP '(?<=site_dir=).*' $CONFIG_PATH)
 
+  # set site_url
+  site_url=$(grep -oP '(?<=site_url=).*' $CONFIG_PATH)
+
   # make site folder if doesn't exist
   mkdir -p $site_folder
 
@@ -43,7 +46,6 @@ function source_config {
 
   #set site_theme to value in config
   site_theme=$(grep -oP '(?<=site_theme=).*' $CONFIG_PATH)
-  echo "theme is: themes/$site_theme"
 
   touch $site_folder/$feed_name
 }
@@ -69,44 +71,46 @@ function create_site {
   touch $site_folder/index.md
 
   # Convert posts to html
-  # add them to index in most recent date order
-
   # uncomment next line to list oldest posts from top to bottom
   #for file in $site_posts/*.md
 
-  # uncomment next line to print newest posts from top to bottom
-  # tac may not be installed on os x
+  # add them to index in most recent date order
+  # this relies on posts being titled in YYYY-MM-DD-name format to work correctly
+  # tac may need to be installed on os x or zsh?
+  # uncomment next line to print newest posts from top to bottom (instead of above for top to bottom)
   ls $site_posts/*.md | tac | while read file;
   do
-    #check if file has title in frontmatter
-    if grep -oP '(?<=title: ).*' $file ; then
-      post_name_raw=$(grep -oP '(?<=title: ).*' $file)
-    else #else use title of filename
-      #strip .md extension from filename to get page name
-      pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
-      post_name_suffix="${file/$pattern}"
-      post_name_raw=$(basename $post_name_suffix .md)
-    fi
-    #strip out spaces
-    post_name="${post_name_raw// /_}"
 
-    #check if file has date in frontmatter
-    if grep -oP '(?<=date: ).*' $file ; then
-      post_date=$(grep -oP '(?<=date: ).*' $file)
-    else #else use date from filename
-      post_date="${file:6:10}"
+    # get filename
+    pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
+    file_name_noprefix="${file/$pattern}"
+    file_name=$(basename $file_name_noprefix .md)
+
+    #check if file has optional title in frontmatter
+    post_name=$(grep -oP '(?<=title: ).*' $file)
+    if [ -z "$post_name" ]; then #no title given, strip from filename
+      post_name="${file_name//-/ }"
+    fi
+
+    # use date from filename
+    post_date="${file:6:10}"
+
+    #check if file has optional css theme (override config) in frontmatter
+    post_theme=$(grep -oP '(?<=theme: ).*' $file)
+    if [ -z "$post_theme" ]; then
+	post_theme=$site_theme
     fi
 
     # uncomment this section if you prefer flat hierarchy postname.md -> postname.html in single posts folder
     # mkdir -p $site_folder/posts
-    # pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html $file -o $site_folder/posts/$post_name.html
-    # echo "[$post_name_raw](posts/$post_name.html)  ">>$site_folder/index.md
+    # pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html --metadata theme="../css/$post_theme" --metadata title="$post_name" $file -o $site_folder/posts/$file_name.html
+    # echo "[$post_name](posts/$file_name.html)  ">>$site_folder/index.md
 
     # uncomment this section if you prefer posts to be in their own subfolder so permalinks are website.com/postname/
-    mkdir -p $site_folder/$post_name
-    pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html $file -o $site_folder/$post_name/index.html
+    mkdir -p $site_folder/$file_name
+    pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html -V site_url="$site_url" -V date="$post_date" -M theme="../css/$post_theme" -M title="$post_name" $file -o $site_folder/$file_name/index.html
     # Add to site index page
-    echo "[$post_name_raw]($post_name/)  ">>$site_folder/index.md
+    echo "[$post_name]($file_name/)  ">>$site_folder/index.md
 
     # add date 
     echo "$post_date  ">>$site_folder/index.md
@@ -118,12 +122,24 @@ function create_site {
   pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" --metadata theme="css/$site_theme" -o $site_folder/index.html
 
   # build all custom pages of any .md files
-  for file in *.md; do
+  for file in pages/*.md; do
 
-    page_dir=$(basename $file .md)
-    mkdir -p $site_folder/$page_dir
+    file_name=$(basename $file .md)
+    mkdir -p $site_folder/$file_name
 
-    pandoc --standalone --template templates/post_template.html $file --metadata title="$page_dir" -o $site_folder/$page_dir/index.html
+    #check if file has optional title in frontmatter
+    post_name=$(grep -oP '(?<=title: ).*' $file)
+    if [ -z "$post_name" ]; then #no title given, strip from filename
+      post_name="${file_name//-/ }"
+    fi
+
+    #check if file has optional css theme (override config) in frontmatter
+    post_theme=$(grep -oP '(?<=theme: ).*' $file)
+    if [ -z "$post_theme" ]; then
+	post_theme=$site_theme
+    fi
+
+    pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html -V site_url="$site_url" -V date="$post_date" -M theme="../css/$post_theme" -M title="$post_name" $file -o $site_folder/$file_name/index.html
 
   done
 }
