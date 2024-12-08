@@ -159,13 +159,26 @@ function create_feed {
     echo "<item>" >> $site_folder/$feed_name
     # get individual title
     echo "<title>" >> $site_folder/$feed_name
-    grep -oP '(?<=title: ).*' $file >> $site_folder/$feed_name
+    title=$(grep -oP '(?<=title: ).*' $file)
+    if [ -z "$title" ]; then
+      # if no title in frontmatter, use stripped filename
+      pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
+      file_name_noprefix="${file/$pattern}"
+      file_name=$(basename $file_name_noprefix .md)
+      post_name="${file_name//-/ }"
+      title=$post_name
+    fi
+    echo $title >> $site_folder/$feed_name
     echo "</title>" >> $site_folder/$feed_name
 
     # get individual url
     echo "<link>" >> $site_folder/$feed_name
     echo $site_url/${file// /-} >> $site_folder/$feed_name
     echo "</link>" >> $site_folder/$feed_name
+    # use url for guid too
+    echo "<guid>" >> $site_folder/$feed_name
+    echo $site_url/${file// /-} >> $site_folder/$feed_name
+    echo "</guid>" >> $site_folder/$feed_name
 
     # echo formatted pubdate
     echo "<pubDate>" >> $site_folder/$feed_name
@@ -178,7 +191,14 @@ function create_feed {
     echo "<description>" >> $site_folder/$feed_name
     ## wrap html content in a CDATA for rss 2.0 spec
     echo "<![CDATA[" >> $site_folder/$feed_name
-    pandoc --to=html5 -o - $file | cat >> $site_folder/$feed_name
+
+    # if description in frontmatter, use that
+    post_description=$(grep -oP '(?<=description: ).*' $file)
+    if [ -z "$post_description" ]; then #otherwise, use head of a post
+      post_description=$(pandoc --to=plain $file | head)
+    fi
+    echo "$post_description" >> $site_folder/$feed_name
+
     echo "]]>" >> $site_folder/$feed_name
     echo "</description>" >> $site_folder/$feed_name
 
