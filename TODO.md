@@ -15,4 +15,6 @@
 * [X] if using filename for title, convert spaces to underscores
 * [X] add documentation! (for example build, local server, images folder, config file, changing theme)
 * [X] Automatically add css theme to all pages unless overriden in a post's frontmatter.
-* [ ] check RSS builder is building correct xml data
+* [X] check RSS builder is building correct xml data
+  * [X] add guid to items
+  * [X] if title not in post metadata, then use filename (or h1?)
