@@ -1,6 +1,6 @@
 # panblog
 
-*Note: This project is currently in development as part of my #decemberadventure 2024 project. It may change a bit over the month and is not quite feature-complete currently.*
+*Note: This project is currently in development as part of my #decemberadventure 2024 project and needs more testing.*
 
 panblog is a simple, minimal bash and pandoc-based static site generator. It takes markdown files and converts them to a website you can host on your own server, github pages, neocities and the like. 
 
@@ -38,16 +38,18 @@ Place css stylesheets in the themes directory. Place templates in the templates 
 
 ## Usage
 
-All posts and pages should include frontmatter in the format:
+All posts and pages can **optionally** include frontmatter in the format:
 
 ```
 ---
 title: title in words
 css: css-stylesheet-name.css
+image: optional opengraph image file
+description: optional opengraph page description
 ---
 ```
 
-You can modify page templates, including the header and footer, nav or any other html elements in the templates folder.
+With no frontmatter, posts and pages still build and use default title from filename. You can modify page templates, including the header and footer, nav or any other html elements in the templates folder.
 
 ### Build entire site
 
