@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="date" content='$date-meta$'>
-    <title>$title$</title>
-    <link rel="stylesheet" href='../css/$theme$'> 
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="date" content="$date-meta$" />
+      <title>$title$</title>
+      <link rel="stylesheet" href="../css/$theme$" />
 
-<meta property="og:title" content="$title$" />
-<meta property="og:url" content="$site_name$/$title$" />
-<meta property="og:image" content="$image$" />
-<meta property="og:type" content="article" />
+      <meta property="og:title" content="$title$" />
+      $if(description)$
+      <meta property="og:description" content="$description$" />
+      $endif$
+      $if(image)$
+      <meta property="og:image" content="$image$" />
+      $endif$
+      <meta property="og:type" content="article" />
   </head>
   <body>
-    <p><a href="../" alt="..">../</a></p>
-    <p>Date: $date$</p>
-    <h1>$title$</h1>
-$body$
-    <footer>
-    $for(include-after)$
-      $include-after$
-      $endfor$
-    </footer>
+      <p><a href="../" alt="..">../</a></p>
+      <h1>$title$</h1>
+      <p><em>Date: $date$</em></p>
+      $body$
+      <footer>$for(include-after)$ $include-after$ $endfor$</footer>
   </body>
 </html>
