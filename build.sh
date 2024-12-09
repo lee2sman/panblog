@@ -55,10 +55,10 @@ function create_site {
   # START BUILD
   echo "Building $site_name..."
 
-  # copy over themes
+  # copy over themes and related files
   #mkdir -p "$site_dir"/css
   mkdir -p "$site_folder/css"
-  cp -r themes/*.css "$site_folder/css/"
+  cp -r themes/* "$site_folder/css/"
 
   # copy over assets
   mkdir -p "$site_dir/$site_assets"
