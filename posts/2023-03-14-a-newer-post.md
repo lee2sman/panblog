@@ -67,7 +67,7 @@ You also need to have installed pandoc. And if you're on OS X, you may need to i
 ### To build your site:
 
 ```sh
-./build
+./build.sh
 ```
 
 You can find the rendered output site in the default _site folder. 
