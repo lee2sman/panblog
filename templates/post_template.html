@@ -3,7 +3,9 @@
   <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      $if(date)$
       <meta name="date" content="$date-meta$" />
+      $endif$
       <title>$title$</title>
       <link rel="stylesheet" href="../css/$theme$" />
 
@@ -19,7 +21,9 @@
   <body>
       <header>$for(include-before)$ $include-before$ $endfor$</footer>
       <h1>$title$</h1>
+      $if(date)$
       <p><em>Date: $date$</em></p>
+      $endif$
       $body$
       <footer>$for(include-after)$ $include-after$ $endfor$</footer>
   </body>

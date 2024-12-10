@@ -9,7 +9,7 @@ body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
 html { 
   background-size: 100% 100%; 
   background-position: 0px 0px,0px 0px,0px 0px,0px 0px; 
-  background-image: radial-gradient(70% 53% at 36% 76%, #73F2FFFF 0%, #073AFF00 100%), radial-gradient(42% 53% at 15% 94%, #073AFF00 5%, #FFFFFFFF 7%), radial-gradient(31% 43% at 7% 98%, #FFFFFFFF 24%, #073AFF00 100%), linear-gradient(125deg, #4EB5FFFF 1%, #4C00FCFF 100%); 
+  background-image: radial-gradient(70% 53% at 36% 76%, #3888E1 0%, whitesmoke 100%), radial-gradient(42% 53% at 15% 94%, #073AFF00 5%, #FFFFFFFF 7%), radial-gradient(31% 43% at 7% 98%, #FFFFFFFF 24%, #073AFF00 100%), linear-gradient(125deg, #4EB5FFFF 1%, #4C00FCFF 100%); 
 }
 
 body { 
@@ -30,7 +30,7 @@ body {
   max-width: 50em;
   line-height: 1.5;
   padding: 4em 1em;
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.7);
   border-radius: 2em;
 }
 

@@ -1,12 +1,25 @@
+---
+title: panblog is built on pandoc
+description: I created panblog because I was frustrated with my regular jekyll static site generator and had increasingly turned to pandoc over the years to convert markdown to html.
+---
 
-I realize one fatal flaw is that my rss writer doesn't do sorting (beyond the file naming scheme) so it doesn't rewrite the correct post order in the rss file.
+Each year for the past decade I've needed to create roughly half a dozen new websites a year, from simple websites for a class, to a devlog for an ongoing project, to documentation sites.
 
-To solve this without having to write something that sorts all the data, I'll just have the user be forced to name the files with YYYY-MM-DD-file-name.md which should be good enough? 
+I created panblog because I was frustrated with my regular jekyll static site generator and had increasingly turned to pandoc over the years to convert markdown to html. I gradually picked up more command line [incantations](https://pandoc.org/MANUAL) and knowledge of building my own templates and frontmatter metadata. 
 
-Well, it still has a flaw that if you have multiple posts in the same day it will resort to sorting them by the filename alphabetically after the date. I can live with that.
+Pandoc was created by [John MacFarlane](https://philosophy.berkeley.edu/people/detail/1), Professor of Philosophy at Berkeley.
 
-```js
-const some_code = {"in","an","array"}
+> If you tried to figure out what philosophical logic was by looking in the literature, you might easily become confused. *--John MacFarlane, from the Preface to Philosophical Logic, A Contemporary Introduction*
+
+When learning pandoc, the basic way to convert a markdown document to html is:
+
+```sh
+pandoc -s index.md -o index.html
 ```
 
-> Something someone said once.
+Pandoc provides many more options, and the current Pandoc incantation for building the site's index is as follows:
+
+```sh
+  pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" --metadata theme="css/$site_theme" -o $site_folder/index.html
+```
+
