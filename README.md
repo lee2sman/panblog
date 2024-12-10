@@ -130,6 +130,10 @@ _site/
 -------index.html
 ```
 
+## Error checking
+
+There's some but not all. You'll have to interpret any errors you see when running the bash script.
+
 ## Themes
 
 panblog comes with several theme options, which are just css files. A theme for your landing page should be specified in your templates files. Individual posts can use override with a different theme by specifying a css theme file in their front matter with the css keyword.
