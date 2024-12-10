@@ -76,7 +76,7 @@ function create_site {
 
   # add them to index in most recent date order
   # this relies on posts being titled in YYYY-MM-DD-name format to work correctly
-  # tac may need to be installed on os x or zsh?
+  # tac may need to be installed on os x or zsh, or swith it out for: tail -r
   # uncomment next line to print newest posts from top to bottom (instead of above for top to bottom)
   ls $site_posts/*.md | tac | while read file;
   do
@@ -119,7 +119,7 @@ function create_site {
   done
 
   # build index
-  pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" --metadata theme="css/$site_theme" -o $site_folder/index.html
+  pandoc --standalone --template templates/site_template.html -s $site_folder/index.md --metadata title="$site_name" -B templates/header.html -A templates/footer.html --metadata theme="css/$site_theme" -o $site_folder/index.html
 
   # build all custom pages of any .md files
   for file in pages/*.md; do
@@ -139,6 +139,7 @@ function create_site {
 	post_theme=$site_theme
     fi
 
+    # render page
     pandoc --resource-path=$site_assets --extract-media=../$site_assets --standalone --template templates/post_template.html -B templates/header.html -A templates/footer.html -V site_url="$site_url" -V date="$post_date" -M theme="../css/$post_theme" -M title="$post_name" $file -o $site_folder/$file_name/index.html
 
   done
