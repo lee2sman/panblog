@@ -108,6 +108,16 @@ FTP or otherwise upload the contents of your site's built directory (by default:
 
 Optionally, you can host the site via [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site), GitLab, Sourcehut, and some other forges. If you're a member of a tilde server community, then you have access to tildegit and can host on [TildePages](https://tilde.wiki/Tildepages).
 
+**To host a site via GitHub pages easily**, simply set your site_folder in the `config.conf` to `docs`. Then build your site. Then push your site including your docs/ directory to your remote GitHub repo. On the GitHub project repo under Settings > Pages select **Deploy from a branch**, and select **docs** and save. You could optionally add a custom domain here. The site will build and deploy within minutes.
+
+More info at [Configuring a publishing source for your GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+
+## Example sites
+
+[Panblog demo site](https://exquisitecorp.tildepages.org/panblog-demo/), hosted via Tildepages
+
+[Drawing, Moving and Seeing with Code](https://leetusman.com/dmsc_spring2025/) class website, hosted via GitHub pages
+
 ## Directory structure
 
 Running build.sh will render the following default output site. 
