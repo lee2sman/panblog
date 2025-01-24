@@ -17,7 +17,7 @@ panblog was created as an alternative to [Jekyll](https://jekyllrb.com/), [Hugo]
 * tac (You probably have it already, such as from GNU coreutils or busybox) 
 * basename (You probably have it already. If not, install coreutils)
 
-## Quickstart
+## Quickstart to test out
 
 The fastest way to get started is to download or clone this repo and then 1. change or modify the files in the `posts` directory, 2. change the variable names in the `config.conf` file, then 3. run the build.sh script `bash build.sh`.
 
@@ -27,13 +27,31 @@ To see your site live in the browser, run a local server in the output `_site` d
 
 Git clone or download this directory to your computer.
 
+Get it from Tildegit or from Github. (Pick one)
+
+```
+git clone https://tildegit.org/exquisitecorp/panblog.git
+```
+
+or
+
+```
+git clone https://github.com/lee2sman/panblog.git
+```
+
+Enter the new directory:
+
+```sh
+cd panblog
+```
+
 Give permissions to the build script:
 
 ```sh
 chmod +x build.sh
 ```
 
-It can now be run with `./build.sh`
+You can now build the site at once with `./build.sh`
 
 ### Setup
 
@@ -41,7 +59,7 @@ All custom variables are set in `config.conf`. Start by opening that file in any
 
 All posts should be placed in the specified posts directory with the file name formatted in YYYY-MM-DD-title-name.md.
 
-All non-post pages can be placed in the pages directory. By default, these pages will be built but won't be linked from any other page. Pages must be manually linked from other pages such as your site's home page, in templates/site_template.html or maybe a navigation bar in templates/header.html.
+All non-post pages can be placed in the pages directory. By default, these pages will be built but won't be linked from any other page. Pages must be manually linked from other pages such as your site's home page, in templates/site_template.html or maybe a navigation bar in templates/header.html. There are examples included in the default template pages.
 
 Place css stylesheet(s) in the themes directory. Place templates in the templates directory. Place your images in the images asset directory.
 
@@ -74,7 +92,7 @@ This looks for all markdown files in the pages and posts directories, then build
 
 ### The difference between pages and posts
 
-Posts are sourced from the posts directory and are automatically linked from your website's landing page, like a traditional blog. They must be saved under a file name with YYYY-MM-DD-title.md format. Pages are any markdown page in the pages directory. They are built and placed in the root folder but not automatically linked from the site homepage. You can manually link to them from any other page, or type their full URL path directly into the browser, such as `https://example.com/contact/`.
+*Posts* are sourced from the posts directory and are automatically linked from your website's landing page, like a traditional blog. They must be saved under a file name with YYYY-MM-DD-title.md format. *Pages* are any markdown page in the pages directory, not the posts directory. Pages are built and placed in the root folder but not automatically linked from the site homepage. You can manually link to them from any other page, or type their full URL path directly into the browser, such as `https://example.com/contact/`.
 
 Example from a site landing page footer:
 
@@ -82,11 +100,15 @@ Example from a site landing page footer:
 To get in touch, [contact](contact/) me.
 ```
 
+This will link to the contact page directly.
+
 ## Testing your site
 
 Run a local server inside your _site folder through many different methods. Most computers have Python installed, so a local server is easy to setup.
 
-If you have python3 installed:
+First, go into your output folder, which is _site by default. For GitHub pages, you should change the config.conf output variable to docs.
+
+Then run the local server there. If you have python3 installed:
 
 ```
 python3 -m http.server
@@ -140,13 +162,17 @@ _site/
 -------index.html
 ```
 
+### Image path
+
+All images for your site can be placed in an image asset directory specified in the config.conf. This allows you to link to an image file on your posts and pages by just listing the image file name without the full qualified image path.
+
 ## Error checking
 
 There's some but not all. You'll have to interpret any errors you see when running the bash script.
 
 ## Themes
 
-panblog comes with several theme options, which are just css files. A theme for your landing page should be specified in your templates files. Individual posts can use override with a different theme by specifying a css theme file in their front matter with the css keyword.
+panblog comes with several theme options, which are just css files. A theme for your landing page should be specified in your templates files. Individual posts or pages can use override and build with a different theme by specifying a css theme file in their front matter with the css keyword.
 
 ## License
 
