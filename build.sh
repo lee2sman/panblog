@@ -186,7 +186,14 @@ function create_feed {
     echo "<pubDate>" >> $site_folder/$feed_name
     # thanks to https://lynxbee.com/create-pubdate-tag-in-rss-xml-using-linux-date-command/#.ZA9akY7MJhF
     pubDate=$(sed -n 's/.*date: \(.*\)/\1/p' $file)
-    date -d "$pubDate" +"%a, %d %b %Y %H:%M:%S %z" >> $site_folder/$feed_name
+    # macOS date uses -j -f, Linux uses -d
+    if date -v 1d > /dev/null 2>&1; then
+      # macOS (BSD date)
+      date -j -f "%Y-%m-%d" "$pubDate" +"%a, %d %b %Y %H:%M:%S %z" >> $site_folder/$feed_name
+    else
+      # Linux (GNU date)
+      date -d "$pubDate" +"%a, %d %b %Y %H:%M:%S %z" >> $site_folder/$feed_name
+    fi
     echo "</pubDate>" >> $site_folder/$feed_name
 
     # echo description of each item
