@@ -24,28 +24,28 @@ function check_valid {
 function source_config {
 
   # set site destination folder
-  site_folder=$(grep -oP '(?<=site_dir=).*' $CONFIG_PATH)
+  site_folder=$(sed -n 's/.*site_dir=\(.*\)/\1/p' $CONFIG_PATH)
 
   # set site_url
-  site_url=$(grep -oP '(?<=site_url=).*' $CONFIG_PATH)
+  site_url=$(sed -n 's/.*site_url=\(.*\)/\1/p' $CONFIG_PATH)
 
   # make site folder if doesn't exist
   mkdir -p $site_folder
 
 # set posts folder to value in config
-  POSTS_PATH=$(grep -oP '(?<=site_posts=).*' $CONFIG_PATH)
+  POSTS_PATH=$(sed -n 's/.*site_posts=\(.*\)/\1/p' $CONFIG_PATH)
 
   # make posts folder if it doesn't exist
   mkdir -p $POSTS_PATH
 
   #set feed_name to site_feed value in config
-  feed_name=$(grep -oP '(?<=site_feed=).*' $CONFIG_PATH)
+  feed_name=$(sed -n 's/.*site_feed=\(.*\)/\1/p' $CONFIG_PATH)
 
   #set site_assets folder
-  site_assets=$(grep -oP '(?<=site_assets=).*' $CONFIG_PATH)
+  site_assets=$(sed -n 's/.*site_assets=\(.*\)/\1/p' $CONFIG_PATH)
 
   #set site_theme to value in config
-  site_theme=$(grep -oP '(?<=site_theme=).*' $CONFIG_PATH)
+  site_theme=$(sed -n 's/.*site_theme=\(.*\)/\1/p' $CONFIG_PATH)
 
   touch $site_folder/$feed_name
 }
@@ -87,7 +87,7 @@ function create_site {
     file_name=$(basename $file_name_noprefix .md)
 
     #check if file has optional title in frontmatter
-    post_name=$(grep -oP '(?<=title: ).*' $file)
+    post_name=$(sed -n 's/.*title: \(.*\)/\1/p' $file)
     if [ -z "$post_name" ]; then #no title given, strip from filename
       post_name="${file_name//-/ }"
     fi
@@ -96,7 +96,7 @@ function create_site {
     post_date="${file:6:10}"
 
     #check if file has optional css theme (override config) in frontmatter
-    post_theme=$(grep -oP '(?<=theme: ).*' $file)
+    post_theme=$(sed -n 's/.*theme: \(.*\)/\1/p' $file)
     if [ -z "$post_theme" ]; then
 	post_theme=$site_theme
     fi
@@ -128,13 +128,13 @@ function create_site {
     mkdir -p $site_folder/$file_name
 
     #check if file has optional title in frontmatter
-    post_name=$(grep -oP '(?<=title: ).*' $file)
+    post_name=$(sed -n 's/.*title: \(.*\)/\1/p' $file)
     if [ -z "$post_name" ]; then #no title given, strip from filename
       post_name="${file_name//-/ }"
     fi
 
     #check if file has optional css theme (override config) in frontmatter
-    post_theme=$(grep -oP '(?<=theme: ).*' $file)
+    post_theme=$(sed -n 's/.*theme: \(.*\)/\1/p' $file)
     if [ -z "$post_theme" ]; then
 	post_theme=$site_theme
     fi
@@ -160,7 +160,7 @@ function create_feed {
     echo "<item>" >> $site_folder/$feed_name
     # get individual title
     echo "<title>" >> $site_folder/$feed_name
-    title=$(grep -oP '(?<=title: ).*' $file)
+    title=$(sed -n 's/.*title: \(.*\)/\1/p' $file)
     if [ -z "$title" ]; then
       # if no title in frontmatter, use stripped filename
       pattern='*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-'
@@ -185,7 +185,7 @@ function create_feed {
     # echo formatted pubdate
     echo "<pubDate>" >> $site_folder/$feed_name
     # thanks to https://lynxbee.com/create-pubdate-tag-in-rss-xml-using-linux-date-command/#.ZA9akY7MJhF
-    pubDate=$(grep -oP '(?<=date: ).*' $file)
+    pubDate=$(sed -n 's/.*date: \(.*\)/\1/p' $file)
     date -d "$pubDate" +"%a, %d %b %Y %H:%M:%S %z" >> $site_folder/$feed_name
     echo "</pubDate>" >> $site_folder/$feed_name
 
@@ -195,7 +195,7 @@ function create_feed {
     echo "<![CDATA[" >> $site_folder/$feed_name
 
     # if description in frontmatter, use that
-    post_description=$(grep -oP '(?<=description: ).*' $file)
+    post_description=$(sed -n 's/.*description: \(.*\)/\1/p' $file)
     if [ -z "$post_description" ]; then #otherwise, use head of a post
       post_description=$(pandoc --to=plain $file | head)
     fi
